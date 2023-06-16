@@ -5,7 +5,7 @@ const Filter = ({ filterValue, setFilter }) => {
   return (
     <div className={styles.filter}>
       <label className={styles.label}>
-        Filter contacts by name:
+        Find contacts by name:
         <input
           type="text"
           value={filterValue}

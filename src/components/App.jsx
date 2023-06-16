@@ -2,13 +2,19 @@ import React, { useState } from 'react';
 import ContactForm from './ContactForm/ContactForm';
 import ContactList from './ContactList/ContactList';
 import Filter from './Filter/Filter';
-import styles from './App.jsx';
 
 const App = () => {
   const [contacts, setContacts] = useState([]);
   const [filter, setFilter] = useState('');
 
   const addContact = (name, number) => {
+    const existingContact = contacts.find(contact => contact.name === name);
+
+    if (existingContact) {
+      alert(`${existingContact.name} is already in contacts!`);
+      return;
+    }
+
     const newContact = {
       id: generateId(),
       name,
@@ -29,16 +35,15 @@ const App = () => {
   };
 
   const generateId = () => {
-    // Tutaj użyj odpowiedniego sposobu do generowania unikalnego ID (np. nanoid)
     return 'id-' + Math.random().toString(36).substr(2, 9);
   };
 
   const filteredContacts = filterContacts();
 
   return (
-    <div className={styles.app}>
+    <div>
       <h1>Phonebook</h1>
-      <ContactForm addContact={addContact} />
+      <ContactForm contacts={contacts} addContact={addContact} />
       <h2>Contacts</h2>
       <Filter filterValue={filter} setFilter={setFilter} />
       <ContactList contacts={filteredContacts} deleteContact={deleteContact} />
