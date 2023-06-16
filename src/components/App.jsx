@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import ContactForm from './ContactForm/ContactForm';
 import ContactList from './ContactList/ContactList';
 import Filter from './Filter/Filter';
+import { nanoid } from 'nanoid';
+import styles from './ContactForm/ContactForm.module.css';
 
 const App = () => {
   const [contacts, setContacts] = useState([]);
@@ -16,7 +18,7 @@ const App = () => {
     }
 
     const newContact = {
-      id: generateId(),
+      id: nanoid(),
       name,
       number,
     };
@@ -34,14 +36,10 @@ const App = () => {
     );
   };
 
-  const generateId = () => {
-    return 'id-' + Math.random().toString(36).substr(2, 9);
-  };
-
   const filteredContacts = filterContacts();
 
   return (
-    <div>
+    <div className={`${styles.container} container`}>
       <h1>Phonebook</h1>
       <ContactForm contacts={contacts} addContact={addContact} />
       <h2>Contacts</h2>
